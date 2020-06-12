@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.universallistadapter.datasource.Repository
 import com.example.universallistadapter.entitys.RecyclerItem
+import com.example.universallistadapter.entitys.User
 
 class MainViewModel : ViewModel() {
 
@@ -14,9 +15,7 @@ class MainViewModel : ViewModel() {
         Repository()
 
     init {
-        _recyclerItems.value = repository.loadFirstList()
-            .map { UserItemViewModel(it)}
-            .map { it.toRecyclerItem() }
+        loadFirstList()
     }
 
 
@@ -33,4 +32,9 @@ class MainViewModel : ViewModel() {
             .map { it.toRecyclerItem() }
         _recyclerItems.postValue(recItems)
     }
+
+    private fun getUserList() = _recyclerItems.value.orEmpty()
+        .map { it.data }
+        .filterIsInstance<UserItemViewModel>()
+        .map { it.user }
 }

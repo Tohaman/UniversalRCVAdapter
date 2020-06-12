@@ -16,6 +16,7 @@ class UserItemViewModel(val user: User): RecyclerItemComparator {
         return this.user.id == other.user.id
     }
 
+    //only if isSameItem == true, check content
     override fun isSameContent(other: Any): Boolean {
         other as UserItemViewModel
         return this.user == other.user
@@ -36,3 +37,6 @@ class UserItemViewModel(val user: User): RecyclerItemComparator {
         )
 }
 
+interface UserItemClick {
+    fun onClick()
+}
