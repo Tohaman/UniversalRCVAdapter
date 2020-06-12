@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">UniversalListAdapter</string>
+    <string name="list_1">List 1</string>
+    <string name="list_2">List 2</string>
+</resources>
