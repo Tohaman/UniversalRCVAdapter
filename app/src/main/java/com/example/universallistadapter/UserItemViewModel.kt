@@ -4,7 +4,9 @@ import com.example.universallistadapter.adapter.RecyclerItemComparator
 import com.example.universallistadapter.entitys.RecyclerItem
 import com.example.universallistadapter.entitys.User
 
-class UserItemViewModel(val user: User): RecyclerItemComparator {
+class UserItemViewModel(val user: User): RecyclerItemComparator, OnClickByUser {
+
+    var clickHandler: OnClickByUser? = null
 
     override fun isSameItem(other: Any): Boolean {
         //is same object?
@@ -22,9 +24,7 @@ class UserItemViewModel(val user: User): RecyclerItemComparator {
         return this.user == other.user
     }
 
-    fun onClick() {
-        //При клике на сам элемент, допустим тоже просто поменяем значение checkbox в адаптере
-    }
+    override fun onClick() = clickHandler?.invoke()     //wtf?
 
     fun onCheckedChange(value: Boolean) {
         //При смене значения, меням его в адаптере
@@ -37,6 +37,6 @@ class UserItemViewModel(val user: User): RecyclerItemComparator {
         )
 }
 
-interface UserItemClick {
+interface OnClickByUser {
     fun onClick()
 }

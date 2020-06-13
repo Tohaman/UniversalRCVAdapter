@@ -1,11 +1,11 @@
 package com.example.universallistadapter
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.universallistadapter.datasource.Repository
 import com.example.universallistadapter.entitys.RecyclerItem
-import com.example.universallistadapter.entitys.User
 
 class MainViewModel : ViewModel() {
 
@@ -18,10 +18,16 @@ class MainViewModel : ViewModel() {
         loadFirstList()
     }
 
+    private val callBack = object: OnClickByUser {
+        override fun onClick() {
+            Log.d("TAG", "Таки нажали на элемент :)")
+        }
+    }
 
     fun loadFirstList() {
         val recItems = repository.loadFirstList()
             .map { UserItemViewModel(it)}
+            .onEach { it.clickHandler = callBack }
             .map { it.toRecyclerItem() }
         _recyclerItems.postValue(recItems)
     }
