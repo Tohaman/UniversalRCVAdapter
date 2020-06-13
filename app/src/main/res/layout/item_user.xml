@@ -28,7 +28,7 @@
             android:textSize="18sp"
             android:textColor="@color/colorPrimary"
             android:layout_margin="16dp"
-            android:onClick="@{() -> itemViewModel.onClick(1)}"
+            android:onClick="@{() -> itemViewModel.onClick()}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             />

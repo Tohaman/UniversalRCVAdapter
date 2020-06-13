@@ -4,7 +4,7 @@ import com.example.universallistadapter.adapter.RecyclerItemComparator
 import com.example.universallistadapter.entitys.RecyclerItem
 import com.example.universallistadapter.entitys.User
 
-class UserItemViewModel(val user: User): RecyclerItemComparator, OnClickByUser {
+class UserItemViewModel(val user: User): RecyclerItemComparator {
 
     var clickHandler: OnClickByUser? = null
 
@@ -24,7 +24,9 @@ class UserItemViewModel(val user: User): RecyclerItemComparator, OnClickByUser {
         return this.user == other.user
     }
 
-    override fun onClick(id: Int) = clickHandler?.onClick(id)!!    //wtf?
+    fun onClick() {
+        clickHandler?.onClick(user.id.toInt())
+    }
 
     fun onCheckedChange(value: Boolean) {
         //При смене значения, меням его в адаптере

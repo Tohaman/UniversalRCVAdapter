@@ -18,18 +18,23 @@ class MainViewModel : ViewModel() {
         loadFirstList()
     }
 
-    private val callBack = object: OnClickByUser {
-        override fun onClick(id: Int) {
-            Log.d("TAG", "Таки нажали на элемент $id :)")
-        }
-    }
-
     fun loadFirstList() {
         val recItems = repository.loadFirstList()
             .map { UserItemViewModel(it)}
-            .onEach { it.clickHandler = callBack }
+            .onEach { it.clickHandler = onClickByUser()
+            }
             .map { it.toRecyclerItem() }
         _recyclerItems.postValue(recItems)
+    }
+
+    private val clickCallBack = onClickByUser()
+
+    private fun onClickByUser(): OnClickByUser {
+        return object : OnClickByUser {
+            override fun onClick(id: Int) {
+                Log.d("TAG", "Таки нажали на элемент $id :)")
+            }
+        }
     }
 
     fun loadSecondList() {
