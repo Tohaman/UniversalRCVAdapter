@@ -27,13 +27,16 @@ class MainViewModel : ViewModel() {
     }
 
     fun loadSecondList() {
-        val recItems = repository.loadSecondList()
-            .map { UserItemViewModel(it)}
+        var users = getUserList()
+        users = users.map { it.firstName = it.lastName
+        it }
+        val recItems = users
+            .map { UserItemViewModel(it) }
             .map { it.toRecyclerItem() }
         _recyclerItems.postValue(recItems)
     }
 
-    private fun getUserList() = _recyclerItems.value.orEmpty()
+    private fun getUserList() = recyclerItems.value.orEmpty()
         .map { it.data }
         .filterIsInstance<UserItemViewModel>()
         .map { it.user }
