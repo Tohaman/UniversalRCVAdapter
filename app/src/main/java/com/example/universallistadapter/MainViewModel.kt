@@ -19,8 +19,8 @@ class MainViewModel : ViewModel() {
     }
 
     private val callBack = object: OnClickByUser {
-        override fun onClick() {
-            Log.d("TAG", "Таки нажали на элемент :)")
+        override fun onClick(id: Int) {
+            Log.d("TAG", "Таки нажали на элемент $id :)")
         }
     }
 

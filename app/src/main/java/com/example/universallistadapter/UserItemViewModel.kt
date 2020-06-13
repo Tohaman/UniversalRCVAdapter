@@ -24,7 +24,7 @@ class UserItemViewModel(val user: User): RecyclerItemComparator, OnClickByUser {
         return this.user == other.user
     }
 
-    override fun onClick() = clickHandler?.invoke()     //wtf?
+    override fun onClick(id: Int) = clickHandler?.onClick(id)!!    //wtf?
 
     fun onCheckedChange(value: Boolean) {
         //При смене значения, меням его в адаптере
@@ -38,5 +38,5 @@ class UserItemViewModel(val user: User): RecyclerItemComparator, OnClickByUser {
 }
 
 interface OnClickByUser {
-    fun onClick()
+    fun onClick(id: Int)
 }
