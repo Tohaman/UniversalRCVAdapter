@@ -21,8 +21,7 @@ class MainViewModel : ViewModel() {
     fun loadFirstList() {
         val recItems = repository.loadFirstList()
             .map { UserItemViewModel(it)}
-            .onEach { it.clickHandler = onClickByUser()
-            }
+            .onEach { it.clickHandler = clickCallBack }
             .map { it.toRecyclerItem() }
         _recyclerItems.postValue(recItems)
     }
@@ -50,5 +49,5 @@ class MainViewModel : ViewModel() {
     private fun getUserList() = recyclerItems.value.orEmpty()
         .map { it.data }
         .filterIsInstance<UserItemViewModel>()
-        .map { it.user }
+        .map { it.user.copy() }
 }
